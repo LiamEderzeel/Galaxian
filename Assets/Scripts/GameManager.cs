@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake ()
     {
+        //GlobalVars.GetInstance ();
         _menu = GameObject.Find("Menu") as GameObject;
         _game = GameObject.Find("Game") as GameObject;
         _game.SetActive(false);
