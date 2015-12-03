@@ -11,11 +11,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake ()
     {
-        //GlobalVars.GetInstance ();
+        GlobalVars.GetInstance ();
         _menu = GameObject.Find("Menu") as GameObject;
         _game = GameObject.Find("Game") as GameObject;
         _game.SetActive(false);
-        Debug.Log(_menu);
     }
 
 	private void Start ()

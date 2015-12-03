@@ -17,8 +17,5 @@ public class Blue : Enemy
 
 	}
 
-	private void OnCollitionEnter()
-	{
 
-	}
 }

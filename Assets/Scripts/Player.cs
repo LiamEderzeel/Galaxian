@@ -7,32 +7,44 @@ public class Player : MonoBehaviour {
 	[SerializeField] private GameObject _bullet;
 	private Bullet _bulletScript;
 
-	void Awake ()
+	private void Awake ()
     {
-//        _bullet = Resources.Load("bullet");
+        //_bullet = Resources.Load("bullet");
 		_bullet = Instantiate(_bullet, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation) as GameObject;
-        _speed = 5f;
-		_bulletScript = _bullet.gameObject.GetComponents<Bullet>();
 
+        _speed = 10f;
+		_bulletScript = _bullet.gameObject.GetComponent<Bullet>();
+		_bulletScript.Player = gameObject;
 	}
 
-	void Start ()
+	private void Start ()
     {
-		Debug.Log (_bullet);
-
 	}
 
-	void Update ()
+	private void Update ()
     {
         GetInput();
         transform.Translate(Vector3.right * Time.deltaTime * _inputHorizontal * _speed);
-		if(Input.GetButtonDown("Fire1") != null){
-			//_bullet.GetComponents<Bullet>().Fired = true;
+		if(Input.GetKeyDown(KeyCode.Space) != false){
+			_bullet.GetComponent<Bullet>().Fired = true;
 		}
 	}
 
-    void GetInput()
+    private void OnCollisionEnter()
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Die();
+        }
+    }
+
+    private void GetInput()
     {
         _inputHorizontal = Input.GetAxis("Horizontal");
+    }
+
+    private void Die()
+    {
+
     }
 }

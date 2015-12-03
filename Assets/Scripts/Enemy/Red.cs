@@ -7,11 +7,13 @@ public class Red : Enemy
     private int _scoreCharge = 100;
     private int _fireRate = 2;
 
-	void Start () {
+	void Start ()
+	{
 
 	}
 
-	void Update () {
+	void Update ()
+	{
 
 	}
 }

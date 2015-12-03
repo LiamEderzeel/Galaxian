@@ -17,12 +17,15 @@ public class GlobalVars : MonoBehaviour {
     private Camera _mainCamera = Camera.main;
     private float _mainCameraHeight;
     private float _mainCameraWidth;
+    private GameObject _game;
+    private GameObject _convoy;
 
 	private void Awake ()
     {
-        GetInstance();
         _mainCameraHeight = 2f * _mainCamera.orthographicSize;
         _mainCameraWidth = _mainCameraHeight * _mainCamera.aspect;
+        _game = GameObject.Find("Game");
+        _convoy = GameObject.Find("Convoy");
 	}
 
     public Camera MainCamera
@@ -38,5 +41,15 @@ public class GlobalVars : MonoBehaviour {
     public float MainCameraWidth
     {
         get { return _mainCameraWidth; }
+    }
+
+    public GameObject Game
+    {
+        get { return _game; }
+    }
+
+    public GameObject Convoy
+    {
+        get { return _convoy; }
     }
 }

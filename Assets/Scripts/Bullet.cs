@@ -3,47 +3,66 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
     private bool _fired;
+	private GameObject _player;
     private Vector3 _startPos;
-    private float _speed;
-	private bool Fired
-	{
-		get{ return _fired;}
-		set{ _fired= value;}
-	}
+    private float _speed = 5f;
+	private float _screenHeight;
 
-    void Awake ()
+    private void Awake ()
     {
         _startPos = transform.position;
     }
 
-	void Start ()
+	private void Start ()
     {
+		_screenHeight = GlobalVars.Instance.MainCameraHeight;
 	}
 
-	void Update ()
+	private void Update ()
     {
+
         if(_fired)
         {
-            transform.Translate(Vector3.up * Time.deltaTime * _speed);
+            gameObject.transform.Translate(Vector3.up * Time.deltaTime * _speed);
         }
 
-//        if(transform.position > blabla)
-//        {
-//            Reset();
-//        }
+		if(gameObject.transform.position.y > _screenHeight / 2)
+		{
+			Reset();
+		}
 	}
 
-//    void OnCollisionEnter(Collision collision)
-//    {
-//		if(collision.tag == "Enemy")
-//        {
-//            Reset();
-//        }
-//    }
+	private void FixedUpdate()
+	{
+		if(!_fired)
+		{
+			gameObject.transform.position = new Vector3(_player.transform.position.x, transform.position.y, transform.position.z);
+		}
+	}
 
-    void Reset ()
+	private void OnCollisionEnter(Collision collision)
+    {
+		if(collision.gameObject.tag == "Enemy")
+        {
+            Reset();
+        }
+    }
+
+    private void Reset ()
     {
         _fired = false;
         transform.position = _startPos;
     }
+
+	public bool Fired
+	{
+		get{ return _fired;}
+		set{ _fired = value;}
+	}
+
+	public GameObject Player
+	{
+		//get{ return _player;}
+		set{ _player = value;}
+	}
 }
