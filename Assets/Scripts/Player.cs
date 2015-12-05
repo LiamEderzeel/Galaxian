@@ -1,40 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
+public delegate void PlayerDied(Player player);
 
 public class Player : MonoBehaviour {
+    [SerializeField] private float _respawnTime;
+    private Vector3 _playPos;
     private float _inputHorizontal;
     private float _speed;
-	[SerializeField] private GameObject _bullet;
-	private Bullet _bulletScript;
+    [SerializeField] private GameObject _bullet;
+    private Bullet _bulletScript;
+    public event PlayerDied _iDied;
 
-	private void Awake ()
+    private void Awake ()
     {
-        //_bullet = Resources.Load("bullet");
-		_bullet = Instantiate(_bullet, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation) as GameObject;
-
+        _playPos = gameObject.transform.position;
+        _bullet = Instantiate(_bullet, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation) as GameObject;
         _speed = 10f;
-		_bulletScript = _bullet.gameObject.GetComponent<Bullet>();
-		_bulletScript.Player = gameObject;
-	}
+        _bulletScript = _bullet.gameObject.GetComponent<Bullet>();
+        _bulletScript.Player = gameObject;
+    }
 
-	private void Start ()
-    {
-	}
-
-	private void Update ()
+    private void Update ()
     {
         GetInput();
         transform.Translate(Vector3.right * Time.deltaTime * _inputHorizontal * _speed);
-		if(Input.GetKeyDown(KeyCode.Space) != false){
-			_bullet.GetComponent<Bullet>().Fired = true;
-		}
-	}
+        if(Input.GetKeyDown(KeyCode.Space) != false){
+            _bullet.GetComponent<Bullet>().Fired = true;
+        }
+    }
 
-    private void OnCollisionEnter()
+    private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
@@ -43,8 +42,12 @@ public class Player : MonoBehaviour {
         _inputHorizontal = Input.GetAxis("Horizontal");
     }
 
-    private void Die()
+    private IEnumerator  Die()
     {
+        _iDied(gameObject.GetComponent<Player>());
+        gameObject.transform.position = new Vector3(0, 0, -20);
+        yield return new WaitForSeconds(_respawnTime);
+        gameObject.transform.position = _playPos;
 
     }
 }

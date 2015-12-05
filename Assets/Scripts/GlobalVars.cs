@@ -19,6 +19,7 @@ public class GlobalVars : MonoBehaviour {
     private float _mainCameraWidth;
     private GameObject _game;
     private GameObject _convoy;
+    private GameObject _player;
 
 	private void Awake ()
     {
@@ -26,6 +27,7 @@ public class GlobalVars : MonoBehaviour {
         _mainCameraWidth = _mainCameraHeight * _mainCamera.aspect;
         _game = GameObject.Find("Game");
         _convoy = GameObject.Find("Convoy");
+        _player = GameObject.Find("Player");
 	}
 
     public Camera MainCamera
@@ -52,4 +54,9 @@ public class GlobalVars : MonoBehaviour {
     {
         get { return _convoy; }
     }
+
+    private GameObject Player
+     {
+         get { return _player; }
+     }
 }
