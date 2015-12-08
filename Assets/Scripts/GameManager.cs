@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         _HUDScore = GameObject.Find("Score").GetComponent<Text>();
         _player.GetComponent<Player>()._iDied += PlayerDied;
         _enemyManager._addScore += AddScore;
-        _resetState();
+        _changeState(GameState.Menu);
     }
 
     private void AddScore(int score)
@@ -54,7 +54,18 @@ public class GameManager : MonoBehaviour
 
     private void _changeState(GameState newState)
     {
-        _resetState();
+        _menu.SetActive(false);
+            Debug.Log(newState);
+        if(newState != GameState.Pauze)
+        {
+            if(newState != GameState.Game)
+            {
+                Debug.Log("dont");
+                _game.SetActive(false);
+            }
+        }
+        _gameOver.SetActive(false);
+        _pauze.SetActive(false);
         _gameState = newState;
 
         if(_gameState == GameState.Game)
@@ -74,14 +85,6 @@ public class GameManager : MonoBehaviour
             _game.SetActive(true);
             _pauze.SetActive(true);
         }
-    }
-
-    private void _resetState()
-    {
-        _menu.SetActive(false);
-        _game.SetActive(false);
-        _gameOver.SetActive(false);
-        _pauze.SetActive(false);
     }
 
     public void ToGame()
