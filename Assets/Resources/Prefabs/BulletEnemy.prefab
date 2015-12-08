@@ -12,7 +12,7 @@ GameObject:
   - 65: {fileID: 6559094}
   - 23: {fileID: 2309150}
   - 54: {fileID: 5400108}
-  - 114: {fileID: 11401652}
+  - 114: {fileID: 11466700}
   m_Layer: 0
   m_Name: BulletEnemy
   m_TagString: Bullet
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -20, z: 0}
   m_LocalScale: {x: .0500000007, y: .200000003, z: .0500000007}
   m_Children: []
   m_Father: {fileID: 0}
@@ -90,7 +90,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11401652
+--- !u!114 &11466700
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 107454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adc0c8c6a523d4e3b9ef36d361313772, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e5786acb267a4551ac8315f455e794e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &100100000

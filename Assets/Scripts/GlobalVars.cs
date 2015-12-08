@@ -20,6 +20,7 @@ public class GlobalVars : MonoBehaviour {
     private GameObject _game;
     private GameObject _convoy;
     private GameObject _player;
+    private GameObject _bulletManager;
 
 	private void Awake ()
     {
@@ -28,6 +29,7 @@ public class GlobalVars : MonoBehaviour {
         _game = GameObject.Find("Game");
         _convoy = GameObject.Find("Convoy");
         _player = GameObject.Find("Player");
+        _bulletManager = GameObject.Find("BulletManager");
 	}
 
     public Camera MainCamera
@@ -58,5 +60,10 @@ public class GlobalVars : MonoBehaviour {
     public GameObject Player
      {
          get { return _player; }
+     }
+
+    public GameObject BulletManager
+     {
+         get { return _bulletManager; }
      }
 }

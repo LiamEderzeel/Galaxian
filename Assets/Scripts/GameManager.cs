@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-enum GameState {Menu, Game, GameOver};
+enum GameState {Menu, Game, GameOver, Pauze};
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private GameObject _menu;
     private GameObject _game;
     private GameObject _gameOver;
+    private GameObject _pauze;
     [SerializeField] private EnemyManager _enemyManager;
     [SerializeField] private GameObject _player;
     private int _lives = 3;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
         _menu = GameObject.Find("Menu") as GameObject;
         _game = GameObject.Find("Game") as GameObject;
         _gameOver = GameObject.Find("GameOver") as GameObject;
+        _pauze = GameObject.Find("Pauze") as GameObject;
         _HUDLive = GameObject.Find("Lives").GetComponent<Text>();
         _HUDScore = GameObject.Find("Score").GetComponent<Text>();
         _player.GetComponent<Player>()._iDied += PlayerDied;
@@ -67,6 +69,11 @@ public class GameManager : MonoBehaviour
         {
             _gameOver.SetActive(true);
         }
+        if(_gameState == GameState.Pauze)
+        {
+            _game.SetActive(true);
+            _pauze.SetActive(true);
+        }
     }
 
     private void _resetState()
@@ -74,6 +81,7 @@ public class GameManager : MonoBehaviour
         _menu.SetActive(false);
         _game.SetActive(false);
         _gameOver.SetActive(false);
+        _pauze.SetActive(false);
     }
 
     public void ToGame()
@@ -104,15 +112,22 @@ public class GameManager : MonoBehaviour
     {
         if(!_pauzed)
         {
+            _changeState(GameState.Pauze);
             Debug.Log("Pauze");
             _pauzed = true;
             Time.timeScale = 0;
         }
         else
         {
+            _changeState(GameState.Game);
             Debug.Log("UnPauze");
             _pauzed = false;
             Time.timeScale = 1;
         }
+    }
+
+    public int Score
+    {
+        get { return _score; }
     }
 }

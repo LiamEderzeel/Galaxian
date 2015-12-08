@@ -15,20 +15,28 @@ public class Enemy : MonoBehaviour
     private int _random;
     [SerializeField] private float _offset;
     [SerializeField] private Vector3 _centerPosition;
+    private BulletManager _bulletManager;
     private float _timer;
+    private float _timerFire;
 
     private void Start ()
     {
+        _bulletManager = GlobalVars.Instance.BulletManager.GetComponent<BulletManager>();
         _centerPosition = gameObject.transform.localPosition;
         if(_state == null)
         {
             _state = State.Convoy;
         }
         _timer = Time.time + Random.Range(5,30);
+        _timerFire = Time.time + Random.Range(3,8);
     }
 
     private void Update ()
     {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Fire();
+        }
         switch(_state)
         {
             case State.Convoy:
@@ -43,6 +51,15 @@ public class Enemy : MonoBehaviour
                 }
                 break;
             case State.Attack:
+                if(_timerFire < Time.time)
+                {
+                    _random = Random.Range(1,100);
+                    if(_random <= 30)
+                    {
+                        Fire();
+                    }
+                    _timerFire = Time.time + Random.Range(3,8);
+                }
                 break;
             default:
                 break;
@@ -80,9 +97,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void fire()
+    private void Fire()
     {
-        //fire bullet
+        GameObject bullet = _bulletManager.Spawn();
+        bullet.transform.position = gameObject.transform.position;
     }
 
     private void Detach()
@@ -144,6 +162,7 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
         Return();
+        Debug.Log("quit");
         yield break;
     }
 
