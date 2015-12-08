@@ -55,7 +55,7 @@ public class GlobalVars : MonoBehaviour {
         get { return _convoy; }
     }
 
-    private GameObject Player
+    public GameObject Player
      {
          get { return _player; }
      }

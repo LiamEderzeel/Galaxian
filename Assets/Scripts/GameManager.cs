@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private Text _HUDLive;
     private Text _HUDScore;
     private int _score;
+    private bool _pauzed = false;
 
     private void Awake ()
     {
@@ -40,6 +41,14 @@ public class GameManager : MonoBehaviour
     {
         _changeState(GameState.Menu);
 	}
+
+    private void Update ()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pauze();
+        }
+    }
 
     private void _changeState(GameState newState)
     {
@@ -89,5 +98,21 @@ public class GameManager : MonoBehaviour
     {
         _score = 0;
         _lives = 3;
+    }
+
+    private void Pauze()
+    {
+        if(!_pauzed)
+        {
+            Debug.Log("Pauze");
+            _pauzed = true;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Debug.Log("UnPauze");
+            _pauzed = false;
+            Time.timeScale = 1;
+        }
     }
 }

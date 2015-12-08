@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
+public class BulletEnemy : MonoBehaviour {
     private bool _fired;
 	private GameObject _player;
-    private Vector3 _startPos;
+    private Vector3 _holding = new Vector3(0, -20, 0);
     private float _speed = 5f;
 	private float _screenHeight;
 
     private void Awake ()
     {
-        _startPos = transform.position;
+        gameObject.transform.position = _holding;
     }
 
 	private void Start ()
@@ -23,11 +23,10 @@ public class Bullet : MonoBehaviour {
 
         if(_fired)
         {
-            gameObject.transform.Translate(Vector3.up * Time.deltaTime * _speed);
-            gameObject.transform.parent = GlobalVars.Instance.Game.transform;
+            gameObject.transform.Translate(Vector3.down * Time.deltaTime * _speed);
         }
 
-		if(gameObject.transform.position.y > _screenHeight/2+1)
+		if(gameObject.transform.position.y < _screenHeight / 2*-1)
 		{
 			Reset();
 		}
@@ -38,10 +37,9 @@ public class Bullet : MonoBehaviour {
 		}
 	}
 
-
 	private void OnCollisionEnter(Collision collision)
     {
-		if(collision.gameObject.tag == "Enemy")
+		if(collision.gameObject.tag == "Player")
         {
             Reset();
         }
@@ -49,9 +47,8 @@ public class Bullet : MonoBehaviour {
 
     private void Reset ()
     {
-        gameObject.transform.parent = GlobalVars.Instance.Player.transform;
         _fired = false;
-        transform.position = _startPos;
+        transform.position = _holding;
     }
 
 	public bool Fired

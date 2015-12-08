@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ConvoyMovement : MonoBehaviour {
     private bool _left;
+    private float _speed = 1;
 
     void Start ()
     {
@@ -22,11 +23,11 @@ public class ConvoyMovement : MonoBehaviour {
 
         if(_left)
         {
-            transform.Translate(new Vector3(-0.01f,0,0));
+            transform.Translate(new Vector3(Time.deltaTime * _speed * -1,0,0));
         }
         else
         {
-            transform.Translate(new Vector3(0.01f,0,0));
+            transform.Translate(new Vector3(Time.deltaTime * _speed,0,0));
         }
     }
 }

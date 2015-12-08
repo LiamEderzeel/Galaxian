@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
     {
         _playPos = gameObject.transform.position;
         _bullet = Instantiate(_bullet, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation) as GameObject;
+        _bullet.transform.parent = gameObject.transform;
         _speed = 10f;
         _bulletScript = _bullet.gameObject.GetComponent<Bullet>();
         _bulletScript.Player = gameObject;
