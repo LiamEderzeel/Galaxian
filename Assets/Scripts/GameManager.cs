@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
         {
             if(newState != GameState.Game)
             {
-                Debug.Log("dont");
                 _game.SetActive(false);
             }
         }
@@ -116,14 +115,12 @@ public class GameManager : MonoBehaviour
         if(!_pauzed)
         {
             _changeState(GameState.Pauze);
-            Debug.Log("Pauze");
             _pauzed = true;
             Time.timeScale = 0;
         }
         else
         {
             _changeState(GameState.Game);
-            Debug.Log("UnPauze");
             _pauzed = false;
             Time.timeScale = 1;
         }
