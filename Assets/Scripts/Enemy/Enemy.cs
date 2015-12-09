@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-public delegate void EnemyDied(Enemy theEnemy);
+using System.Collections.Generic;
+
+ public delegate void EnemyDied(Enemy theEnemy);
 
 enum State {Convoy, Attack};
 
@@ -9,7 +11,7 @@ public class Enemy : MonoBehaviour
     public event EnemyDied _iDied;
     private int _scoreConvoy = 30;
     private int _scoreCharge = 60;
-    private int _fireRate;
+    private int _fireChance = 30;
     private State _state;
     private int _chance = 15;
     private int _random;
@@ -54,7 +56,7 @@ public class Enemy : MonoBehaviour
                 if(_timerFire < Time.time)
                 {
                     _random = Random.Range(1,100);
-                    if(_random <= 30)
+                    if(_random <= _fireChance)
                     {
                         Fire();
                     }
